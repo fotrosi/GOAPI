@@ -16,6 +16,9 @@ func UsersRouter(w http.ResponseWriter, r *http.Request) {
 		case http.MethodGet:
 			usersGetAll(w, r)
 			return
+		case http.MethodHead:
+			usersGetAll(w, r)
+			return
 		case http.MethodPost:
 			usersPostOne(w, r)
 			return
@@ -34,13 +37,19 @@ func UsersRouter(w http.ResponseWriter, r *http.Request) {
 
 	switch r.Method {
 	case http.MethodGet:
-		userGetOne(w, r, id)
+		usersGetOne(w, r, id)
+		return
+	case http.MethodHead:
+		usersGetOne(w, r, id)
 		return
 	case http.MethodPut:
+		usersPutOne(w, r, id)
 		return
 	case http.MethodPatch:
+		usersPatchOne(w, r, id)
 		return
 	case http.MethodDelete:
+		usersDeleteOne(w, r, id)
 		return
 	default:
 		postError(w, http.StatusMethodNotAllowed)
